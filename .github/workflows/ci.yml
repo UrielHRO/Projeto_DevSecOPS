@@ -1,4 +1,4 @@
-name: CI/CD DevSecOps (Build + SAST Semgrep + Deploy automático no Vercel)
+name: CI/CD DevSecOps (Build + SAST Semgrep + DAST ZAP)
 
 on:
   push:
@@ -39,12 +39,23 @@ jobs:
       - name: Executar análise Semgrep
         run: |
           semgrep --config .semgrep.yml --json > semgrep-report.json || true
-          echo "----- RESULTADO DA ANÁLISE -----"
+          echo "----- RESULTADO DA ANÁLISE SAST (SEMGREP) -----"
           cat semgrep-report.json
 
-      - name: Upload do relatório
+      - name: Upload do relatório SAST
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: semgrep-report
           path: semgrep-report.json
+
+  zap-scan:
+    name: DAST - Análise de segurança com OWASP ZAP
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    steps:
+      - name: ZAP Scan
+        uses: zaproxy/action-full-scan@v0.10.0
+        with:
+          # Alvo da análise DAST (URL da sua aplicação no Vercel)
+          target: 'https://projeto-dev-sec-ops.vercel.app/'
