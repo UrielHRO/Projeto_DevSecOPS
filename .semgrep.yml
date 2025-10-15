@@ -1,4 +1,4 @@
-# ARQUIVO: .semgrep.yml (CORRIGIDO)
+# ARQUIVO: .semgrep.yml (VERSÃO FINAL CORRIGIDA)
 rules:
   - id: js-eval-detect
     message: "Uso de eval() detectado — evita eval() por motivos de segurança."
@@ -6,6 +6,7 @@ rules:
     languages:
       - javascript
       - typescript
+    pattern: eval(...)
 
   - id: js-hardcoded-secret
     message: "Possível secret hardcoded (apiKey/token/secret)."
