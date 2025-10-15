@@ -2,20 +2,26 @@ rules:
   - id: js-eval-detect
     message: "Uso de eval() detectado — evita eval() por motivos de segurança."
     severity: ERROR
-    languages: [javascript, nodejs]
-    patterns:
-      - pattern: eval(...)
+    languages: 
+      - javascript
+      - typescript
+      - nodejs
+    pattern: eval(...)
 
   - id: js-hardcoded-secret
     message: "Possível secret hardcoded (apiKey/token/secret)."
     severity: WARNING
-    languages: [javascript, nodejs]
+    languages: 
+      - javascript
+      - typescript
+      - nodejs
     pattern-regex: '(api[_-]?key|token|secret|passwd).{0,40}["\'][A-Za-z0-9\-_]{8,}["\']'
 
   - id: js-innerHTML
     message: "Atribuição a innerHTML detectada — pode provocar XSS."
     severity: WARNING
-    languages: [javascript, nodejs]
-    patterns:
-      - pattern: |
-          $EL.innerHTML = $X
+    languages:
+      - javascript
+      - typescript
+      - nodejs
+    pattern: $EL.innerHTML = $X
