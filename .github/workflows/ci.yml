@@ -53,14 +53,17 @@ jobs:
     name: DAST - Análise de segurança com OWASP ZAP
     runs-on: ubuntu-latest
     needs: build-and-test
-    # ADICIONADO: Concede permissão para criar Issues
     permissions:
       issues: write
     steps:
+      - name: Aguardar Deploy da Vercel
+        run: sleep 45 # Pausa para garantir que a nova versão do site está no ar
+
       - name: ZAP Scan
         uses: zaproxy/action-full-scan@v0.10.0
         with:
-          # Alvo da análise DAST (URL da sua aplicação no Vercel)
           target: 'https://projeto-dev-sec-ops.vercel.app/'
-          # ADICIONADO: Token para autenticar e criar Issues
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # CORRIGIDO: O nome correto do parâmetro é 'token'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # CORRIGIDO: Definindo um nome explícito para o artefato
+          artifact_name: 'zap-report'
