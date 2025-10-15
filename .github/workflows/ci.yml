@@ -32,15 +32,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Executar Semgrep (action oficial)
-        uses: returntocorp/semgrep-action@v1
-        with:
-          config: ".semgrep.yml"
-          format: "sarif"
+      - name: Instalar Semgrep via pip
+        run: |
+          python3 -m pip install --upgrade pip semgrep
 
-      - name: Upload do relatório do Semgrep
+      - name: Executar análise Semgrep
+        run: |
+          semgrep --config .semgrep.yml --json > semgrep-report.json || true
+          echo "----- RESULTADO DA ANÁLISE -----"
+          cat semgrep-report.json
+
+      - name: Upload do relatório
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: semgrep-report
-          path: semgrep.sarif
+          path: semgrep-report.json

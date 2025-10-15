@@ -8,5 +8,4 @@ function subtrai(a, b) {
 
 module.exports = { soma, subtrai };
 
-eval("2 + 2");
-eval("2 + 2");
+
