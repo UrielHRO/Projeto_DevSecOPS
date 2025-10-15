@@ -5,16 +5,13 @@ rules:
     severity: ERROR
     languages:
       - javascript
-      - nodejs
       - typescript
-    pattern: eval(...)
 
   - id: js-hardcoded-secret
     message: "Possível secret hardcoded (apiKey/token/secret)."
     severity: WARNING
     languages:
       - javascript
-      - nodejs
       - typescript
     pattern-regex: '(api[_-]?key|token|secret|passwd).{0,40}["''][A-Za-z0-9\-_]{8,}["'']'
 
@@ -23,7 +20,6 @@ rules:
     severity: WARNING
     languages:
       - javascript
-      - nodejs
       - typescript
     pattern: |
       $EL.innerHTML = $X
