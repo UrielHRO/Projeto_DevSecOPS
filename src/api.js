@@ -1,10 +1,10 @@
+/*
 module.exports = (req, res) => {
   res.status(200).json({ mensagem: 'API funcionando corretamente!' });
 };
 
-// const token = "apiKey_123456789ABC";
+*/
 
-/*
 
 module.exports = (req, res) => {
   // Pega o parâmetro 'nome' da URL. Ex: /?nome=Mundo
@@ -21,4 +21,4 @@ module.exports = (req, res) => {
   res.status(200).send(mensagemHTML);
 };
 
-*/
+
